@@ -12,7 +12,6 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"path/filepath"
 )
 
 const (
@@ -34,16 +33,16 @@ type Client struct {
 }
 
 func NewClient(username string) (*Client, error) {
-	f, err := os.OpenFile(filepath.Join(".", "token", "slack_token.json"), os.O_RDONLY, 0666)
-	if err != nil {
-		return &Client{}, nil
-	}
-	token, err := ioutil.ReadAll(f)
+	//f, err := os.OpenFile(filepath.Join(".", "token", "slack_token.json"), os.O_RDONLY, 0666)
+	//if err != nil {
+	//	return &Client{}, nil
+	//}
+	//token, err := ioutil.ReadAll(f)
 
 	c := &Client{
 		httpClient: &http.Client{},
 		username:   username,
-		token:      string(token),
+		token:      os.Getenv("SLACK_BOT"),
 	}
 	return c, nil
 }
